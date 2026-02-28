@@ -12,7 +12,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.Subject.list');
     }
 
     /**

@@ -1,21 +1,9 @@
-@extends('layouts.dashboard')
+@extends('layouts.admin')
 
-@php
-    $pageTitle = 'Admin Dashboard';
-    $sidebarTitle = 'Admin Panel';
-    $menuItems = [
-        ['label' => 'Dashboard', 'url' => '#', 'icon' => 'icon-dashboard', 'active' => 'admin/dashboard'],
-        ['label' => 'Users', 'url' => '#', 'icon' => 'icon-users', 'active' => 'admin/users*'],
-        ['label' => 'Teachers', 'url' => '#', 'icon' => 'icon-teacher', 'active' => 'admin/teachers*'],
-        ['label' => 'Students', 'url' => '#', 'icon' => 'icon-student', 'active' => 'admin/students*'],
-        ['label' => 'Courses', 'url' => '#', 'icon' => 'icon-courses', 'active' => 'admin/courses*'],
-        ['label' => 'Reports', 'url' => '#', 'icon' => 'icon-reports', 'active' => 'admin/reports*'],
-        ['label' => 'Settings', 'url' => '#', 'icon' => 'icon-settings', 'active' => 'admin/settings*'],
-    ];
-@endphp
+@php $pageTitle = 'Admin Dashboard'; @endphp
 
-@section('content')
-    <div class="dashboard-stats">
+@section('admin-content')
+   <div class="dashboard-stats">
         <div class="stat-card">
             <h3>Total Users</h3>
             <p class="stat-number">{{ $totalUsers ?? 0 }}</p>
@@ -29,8 +17,8 @@
             <p class="stat-number">{{ $totalStudents ?? 0 }}</p>
         </div>
         <div class="stat-card">
-            <h3>Total Courses</h3>
-            <p class="stat-number">{{ $totalCourses ?? 0 }}</p>
+            <h3>Total Subjects</h3>
+            <p class="stat-number">{{ $totalSubjects ?? 0 }}</p>
         </div>
     </div>
 

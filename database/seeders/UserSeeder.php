@@ -55,6 +55,7 @@ class UserSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
 
+        // Students (6 Base)
         $students = [
             ['Jane Student', 'student@gmail.com', '9800000001'],
             ['Aarav Sharma', 'aarav@gmail.com', '9800000002'],
@@ -64,16 +65,27 @@ class UserSeeder extends Seeder
             ['Bikash Karki', 'bikash@gmail.com', '9800000006'],
         ];
 
+        // Add 20 more students
+        for ($i = 1; $i <= 20; $i++) {
+            $students[] = [
+                "Student $i",
+                "student$i@gmail.com",
+                '9800000' . str_pad($i + 6, 3, '0', STR_PAD_LEFT),
+            ];
+        }
+
         foreach ($students as $student) {
-            User::create([
-                'name' => $student[0],
-                'email' => $student[1],
-                'phone' => $student[2],
-                'password' => Hash::make('password'),
-                'role' => 'student',
-                'email_verified_at' => now(),
-                'is_active' => true,
-            ]);
+            User::updateOrCreate(
+                ['email' => $student[1]],
+                [
+                    'name' => $student[0],
+                    'phone' => $student[2],
+                    'password' => Hash::make('password'),
+                    'role' => 'student',
+                    'email_verified_at' => now(),
+                    'is_active' => true,
+                ]
+            );
         }
     }
 }

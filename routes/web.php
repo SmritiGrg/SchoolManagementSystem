@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -18,6 +19,9 @@ Route::post('/admin/login', [UserController::class, 'adminLogin'])->name('admin.
 // Admin Routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [UserController::class, 'adminDashboard'])->name('dashboard');
+
+    //Subject Admin Routes
+    Route::get('/subject', [SubjectController::class, 'index'])->name('subject.list');
 });
 
 // Teacher Routes

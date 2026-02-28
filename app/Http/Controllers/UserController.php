@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -95,7 +97,20 @@ class UserController extends Controller
 
     public function adminDashboard()
     {
-        return view('admin.dashboard');
+        $totalUsers = User::count();
+
+        $totalTeachers = User::where('role', 'teacher')->count();
+
+        $totalStudents = User::where('role', 'student')->count();
+
+        $totalSubjects = Subject::count();
+
+        return view('admin.dashboard', compact(
+            'totalUsers',
+            'totalTeachers',
+            'totalStudents',
+            'totalSubjects'
+        ));
     }
 
     public function logout(Request $request)
