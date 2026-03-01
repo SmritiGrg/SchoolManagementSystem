@@ -22,6 +22,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     //Subject Admin Routes
     Route::get('/subject', [SubjectController::class, 'index'])->name('subject.list');
+    Route::get('/subject/create', [SubjectController::class, 'create'])->name('subject.create');
+    Route::post('/subject', [SubjectController::class, 'store'])->name('subject.store');
+    Route::get('/subject/{subject}', [SubjectController::class, 'show'])->name('subject.show');
+    Route::get('/subject/{subject}/edit', [SubjectController::class, 'edit'])->name('subject.edit');
+    Route::put('/subject/{subject}', [SubjectController::class, 'update'])->name('subject.update');
+    Route::delete('/subject/{subject}', [SubjectController::class, 'destroy'])->name('subject.destroy');
 });
 
 // Teacher Routes

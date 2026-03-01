@@ -1,23 +1,24 @@
 @extends('layouts.admin')
 
 @php 
-    $pageTitle = 'Create Subject'; 
+    $pageTitle = 'Edit Subject'; 
 @endphp
 
 @section('admin-content')
 <div class="content-header">
     <div class="header-left">
         <a href="{{ route('admin.subject.list') }}" class="back-button">← Back</a>
-        <h1 class="page-title">Create New Subject</h1>
-        <p class="page-subtitle">Add a new subject to the system</p>
+        <h1 class="page-title">Edit Subject</h1>
+        <p class="page-subtitle">Update subject information</p>
     </div>
 </div>
 
 <div class="form-container">
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.subject.store') }}" method="POST" class="subject-form">
+            <form action="{{ route('admin.subject.update', $subject) }}" method="POST" class="subject-form">
                 @csrf
+                @method('PUT')
 
                 <div class="form-group">
                     <label for="subject_name" class="form-label">
@@ -28,7 +29,7 @@
                         name="subject_name" 
                         id="subject_name" 
                         class="form-control @error('subject_name') is-invalid @enderror" 
-                        value="{{ old('subject_name') }}"
+                        value="{{ old('subject_name', $subject->subject_name) }}"
                         placeholder="e.g., Mathematics, English, Science"
                         required
                     >
@@ -47,7 +48,7 @@
                         name="subject_code" 
                         id="subject_code" 
                         class="form-control @error('subject_code') is-invalid @enderror" 
-                        value="{{ old('subject_code') }}"
+                        value="{{ old('subject_code', $subject->subject_code) }}"
                         placeholder="e.g., MATH101, ENG101"
                         required
                     >
@@ -61,7 +62,7 @@
                     <a href="{{ route('admin.subject.list') }}" class="btn btn-secondary">Cancel</a>
                     <button type="submit" class="btn btn-primary">
                         <span class="btn-icon">✓</span>
-                        Create Subject
+                        Update Subject
                     </button>
                 </div>
             </form>
@@ -69,12 +70,11 @@
     </div>
 
     <div class="info-card">
-        <h3>📋 Guidelines</h3>
+        <h3>ℹ️ Subject Information</h3>
         <ul>
-            <li>Subject name should be clear and descriptive</li>
-            <li>Subject code must be unique across all subjects</li>
-            <li>Use standard naming conventions (e.g., MATH101, ENG101)</li>
-            <li>All fields marked with * are required</li>
+            <li><strong>Created:</strong> {{ $subject->created_at->format('M d, Y h:i A') }}</li>
+            <li><strong>Last Updated:</strong> {{ $subject->updated_at->format('M d, Y h:i A') }}</li>
+            <li><strong>Classes Assigned:</strong> {{ $subject->classSubjects->count() }}</li>
         </ul>
     </div>
 </div>
