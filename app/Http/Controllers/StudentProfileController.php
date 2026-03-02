@@ -8,6 +8,8 @@ use App\Models\Classes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class StudentProfileController extends Controller
 {
@@ -72,8 +74,10 @@ class StudentProfileController extends Controller
         // Generate random password
         $generatedPassword = $this->generatePassword();
         
-        // Get all classes
-        $classes = Classes::orderBy('class_name')->get();
+        // ✅ Sort Grade numerically + section
+        $classes = Classes::orderByRaw("CAST(REPLACE(class_name, 'Grade ', '') AS UNSIGNED) ASC")
+        ->orderBy('section')
+        ->get();
         
         return view('admin.Student.create', compact('nextAdmissionNumber', 'generatedPassword', 'classes'));
     }
@@ -156,9 +160,9 @@ class StudentProfileController extends Controller
 
             // Send email with credentials
             try {
-                \Mail::to($user->email)->send(new \App\Mail\StudentCredentials($user, $plainPassword, $validated['admission_number']));
+                Mail::to($user->email)->send(new \App\Mail\StudentCredentials($user, $plainPassword, $validated['admission_number']));
             } catch (\Exception $e) {
-                \Log::warning('Failed to send student credentials email: ' . $e->getMessage());
+                Log::warning('Failed to send student credentials email: ' . $e->getMessage());
             }
 
             DB::commit();
@@ -187,7 +191,11 @@ class StudentProfileController extends Controller
     public function edit(StudentProfile $student)
     {
         $student->load('user');
-        $classes = Classes::orderBy('class_name')->get();
+        $classes = Classes::orderByRaw(
+"CAST(REPLACE(class_name, 'Grade ', '') AS UNSIGNED) ASC"
+    )
+    ->orderBy('section')
+    ->get();
         return view('admin.Student.edit', compact('student', 'classes'));
     }
 

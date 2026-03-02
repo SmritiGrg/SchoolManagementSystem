@@ -1463,3 +1463,50 @@ html, body {
     width: 100%;
   }
 }
+
+/* Info Display */
+.info-display {
+  padding: 10px 0;
+}
+
+.info-item-full {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Academic Stats */
+.academic-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 8px;
+  color: #3b82f6;
+}
+
+.stat-icon-wrapper .stat-icon-svg {
+  width: 28px;
+  height: 28px;
+}

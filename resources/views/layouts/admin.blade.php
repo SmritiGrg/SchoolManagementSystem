@@ -26,7 +26,7 @@
             'label' => 'Students',
             'url' => route('admin.student.list'),
             'icon' => 'students',
-            'active' => 'admin/students*'
+            'active' => 'admin/student*'
         ],
         [
             'label' => 'Subjects',
