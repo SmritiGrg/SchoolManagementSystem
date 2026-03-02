@@ -4,14 +4,48 @@
     $pageTitle = $pageTitle ?? 'Admin Panel';
     $sidebarTitle = 'Admin Panel';
     $menuItems = [
-        ['label' => 'Dashboard', 'url' => route('admin.dashboard'), 'icon' => 'icon-dashboard', 'active' => 'admin/dashboard'],
-        ['label' => 'Users', 'url' => '#', 'icon' => 'icon-users', 'active' => 'admin/users*'],
-        ['label' => 'Teachers', 'url' => '#', 'icon' => 'icon-teacher', 'active' => 'admin/teachers*'],
-        ['label' => 'Students', 'url' => '#', 'icon' => 'icon-student', 'active' => 'admin/students*'],
-        ['label' => 'Courses', 'url' => '#', 'icon' => 'icon-courses', 'active' => 'admin/courses*'],
-        ['label' => 'Subjects', 'url' => route('admin.subject.list'), 'icon' => 'icon-subjects', 'active' => 'admin/subject*'],
-        ['label' => 'Reports', 'url' => '#', 'icon' => 'icon-reports', 'active' => 'admin/reports*'],
-        ['label' => 'Settings', 'url' => '#', 'icon' => 'icon-settings', 'active' => 'admin/settings*'],
+        [
+            'label' => 'Dashboard',
+            'url' => route('admin.dashboard'),
+            'icon' => 'dashboard',
+            'active' => 'admin/dashboard'
+        ],
+        [
+            'label' => 'Users',
+            'url' => '#',
+            'icon' => 'users',
+            'active' => 'admin/users*'
+        ],
+        [
+            'label' => 'Teachers',
+            'url' => route('admin.teacher.list'),
+            'icon' => 'teacher',
+            'active' => 'admin/teacher*'
+        ],
+        [
+            'label' => 'Students',
+            'url' => route('admin.student.list'),
+            'icon' => 'students',
+            'active' => 'admin/students*'
+        ],
+        [
+            'label' => 'Subjects',
+            'url' => route('admin.subject.list'),
+            'icon' => 'book',
+            'active' => 'admin/subject*'
+        ],
+        [
+            'label' => 'Reports',
+            'url' => '#',
+            'icon' => 'chart',
+            'active' => 'admin/reports*'
+        ],
+        [
+            'label' => 'Settings',
+            'url' => '#',
+            'icon' => 'settings',
+            'active' => 'admin/settings*'
+        ],
     ];
 @endphp
 
