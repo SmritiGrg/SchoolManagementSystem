@@ -45,7 +45,15 @@
                     </div>
                     <div class="info-item">
                         <span class="info-label">Class</span>
-                        <span class="info-value">{{ $student->class->class_name ?? 'N/A' }}</span>
+                        <span class="info-value">
+                            @if($student->class)
+                                {{ $student->class->class_name }}
+                                {{ $student->class->section ? '(' . $student->class->section . ')' : '' }}
+                                - {{ $student->class->academic_year }}
+                            @else
+                                N/A
+                            @endif
+                        </span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Email</span>
@@ -155,7 +163,15 @@
                         </svg>
                     </span>
                     <div class="stat-content">
-                        <span class="stat-value">{{ $student->class->class_name ?? 'N/A' }}</span>
+                        <span class="stat-value">
+                            @if($student->class)
+                                {{ $student->class->class_name }}
+                                {{ $student->class->section ? '(' . $student->class->section . ')' : '' }}
+                                - {{ $student->class->academic_year }}
+                            @else
+                                N/A
+                            @endif
+                        </span>
                         <span class="stat-label">Current Class</span>
                     </div>
                 </div>

@@ -23,13 +23,13 @@ class StudentProfileController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('admission_number', 'like', "%{$search}%")
-                  ->orWhere('roll_number', 'like', "%{$search}%")
-                  ->orWhereHas('user', function($q) use ($search) {
-                      $q->where('name', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%");
-                  });
+                    ->orWhere('roll_number', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%")
+                            ->orWhere('email', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -50,7 +50,7 @@ class StudentProfileController extends Controller
 
         $students = $query->orderBy('created_at', 'desc')->paginate(10);
         $classes = Classes::orderBy('class_name')->orderBy('section')->get();
-        
+
         return view('admin.Student.list', compact('students', 'classes'));
     }
 
@@ -61,24 +61,24 @@ class StudentProfileController extends Controller
     {
         // Generate next admission number
         $lastStudent = StudentProfile::orderBy('id', 'desc')->first();
-        
+
         if ($lastStudent && preg_match('/ADM-(\d+)/', $lastStudent->admission_number, $matches)) {
             $lastNumber = intval($matches[1]);
             $nextNumber = $lastNumber + 1;
         } else {
             $nextNumber = 1;
         }
-        
+
         $nextAdmissionNumber = 'ADM-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
-        
+
         // Generate random password
         $generatedPassword = $this->generatePassword();
-        
-        // ✅ Sort Grade numerically + section
+
+        // Sort Grade numerically + section
         $classes = Classes::orderByRaw("CAST(REPLACE(class_name, 'Grade ', '') AS UNSIGNED) ASC")
-        ->orderBy('section')
-        ->get();
-        
+            ->orderBy('section')
+            ->get();
+
         return view('admin.Student.create', compact('nextAdmissionNumber', 'generatedPassword', 'classes'));
     }
 
@@ -91,18 +91,18 @@ class StudentProfileController extends Controller
         $lowercase = 'abcdefghijklmnopqrstuvwxyz';
         $numbers = '0123456789';
         $special = '!@#$%^&*';
-        
+
         $password = '';
         $password .= $uppercase[random_int(0, strlen($uppercase) - 1)];
         $password .= $lowercase[random_int(0, strlen($lowercase) - 1)];
         $password .= $numbers[random_int(0, strlen($numbers) - 1)];
         $password .= $special[random_int(0, strlen($special) - 1)];
-        
+
         $allChars = $uppercase . $lowercase . $numbers . $special;
         for ($i = 4; $i < $length; $i++) {
             $password .= $allChars[random_int(0, strlen($allChars) - 1)];
         }
-        
+
         return str_shuffle($password);
     }
 
@@ -132,7 +132,7 @@ class StudentProfileController extends Controller
         try {
             // Store plain password for email
             $plainPassword = $validated['password'];
-            
+
             // Create user account
             $user = User::create([
                 'name' => $validated['name'],
@@ -192,10 +192,10 @@ class StudentProfileController extends Controller
     {
         $student->load('user');
         $classes = Classes::orderByRaw(
-"CAST(REPLACE(class_name, 'Grade ', '') AS UNSIGNED) ASC"
-    )
-    ->orderBy('section')
-    ->get();
+            "CAST(REPLACE(class_name, 'Grade ', '') AS UNSIGNED) ASC"
+        )
+            ->orderBy('section')
+            ->get();
         return view('admin.Student.edit', compact('student', 'classes'));
     }
 
@@ -268,11 +268,11 @@ class StudentProfileController extends Controller
     {
         try {
             DB::beginTransaction();
-            
+
             $user = $student->user;
             $student->delete();
             $user->delete();
-            
+
             DB::commit();
 
             return redirect()->route('admin.student.list')

@@ -52,6 +52,15 @@
                         <span class="info-value">{{ $teacher->qualification ?? 'N/A' }}</span>
                     </div>
                     <div class="info-item">
+                        <span class="info-label">Assigned Subject</span>
+                        <span class="info-value">
+                            {{ $teacher->subject?->subject_name ?? 'N/A' }}
+                            @if($teacher->subject?->subject_code)
+                                <span class="badge badge-code">{{ $teacher->subject->subject_code }}</span>
+                            @endif
+                        </span>
+                    </div>
+                    <div class="info-item">
                         <span class="info-label">Experience</span>
                         <span class="info-value">{{ $teacher->experience_years }} years</span>
                     </div>
@@ -147,6 +156,17 @@
                     <div class="stat-content">
                         <span class="stat-value">{{ $teacher->experience_years }}</span>
                         <span class="stat-label">Years Experience</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stat-icon-svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                        </svg>
+                    </span>
+                    <div class="stat-content">
+                        <span class="stat-value">{{ $teacher->subject?->subject_name ?? 'N/A' }}</span>
+                        <span class="stat-label">Assigned Subject</span>
                     </div>
                 </div>
             </div>

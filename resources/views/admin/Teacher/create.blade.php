@@ -127,6 +127,35 @@
                             <small class="form-hint">Contains uppercase, lowercase, numbers & special characters</small>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="subject_id" class="form-label">
+                                Subject <span class="required">*</span>
+                            </label>
+
+                            <select 
+                                name="subject_id"
+                                id="subject_id"
+                                class="form-control @error('subject_id') is-invalid @enderror"
+                                required
+                            >
+                                <option value="">Select Subject</option>
+
+                                @foreach($subjects as $subject)
+                                    <option value="{{ $subject->id }}" 
+                                        {{ old('subject_id') == $subject->id ? 'selected' : '' }}>
+                                        {{ $subject->subject_name }} ({{ $subject->subject_code }})
+                                    </option>
+                                @endforeach
+
+                            </select>
+
+                            @error('subject_id')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                    </div>
                 </div>
 
                 <div class="form-section">

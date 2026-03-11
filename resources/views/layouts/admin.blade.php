@@ -12,7 +12,7 @@
         ],
         [
             'label' => 'Users',
-            'url' => '#',
+            'url' => route('admin.user.list'),
             'icon' => 'users',
             'active' => 'admin/users*'
         ],
@@ -33,6 +33,12 @@
             'url' => route('admin.subject.list'),
             'icon' => 'book',
             'active' => 'admin/subject*'
+        ],
+        [
+            'label' => 'Class-Subject',
+            'url' => route('admin.class-subject.list'),
+            'icon' => 'book',
+            'active' => 'admin/class-subject*'
         ],
         [
             'label' => 'Reports',

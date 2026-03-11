@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subject;
 use App\Models\TeacherProfile;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -41,11 +42,13 @@ class TeacherProfileController extends Controller
         }
         
         $nextEmployeeId = 'EMP-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+
+        $subjects = Subject::orderBy('subject_name')->get();
         
         // Generate random password
         $generatedPassword = $this->generatePassword();
         
-        return view('admin.Teacher.create', compact('nextEmployeeId', 'generatedPassword'));
+        return view('admin.Teacher.create', compact('nextEmployeeId', 'generatedPassword', 'subjects'));
     }
 
     /**
@@ -87,6 +90,7 @@ class TeacherProfileController extends Controller
             'experience_years' => 'nullable|integer|min:0',
             'joining_date' => 'nullable|date',
             'salary' => 'nullable|numeric|min:0',
+            'subject_id' => 'required|exists:subjects,id',
         ]);
 
         DB::beginTransaction();
@@ -112,6 +116,7 @@ class TeacherProfileController extends Controller
                 'experience_years' => $validated['experience_years'] ?? 0,
                 'joining_date' => $validated['joining_date'],
                 'salary' => $validated['salary'],
+                'subject_id' => $validated['subject_id'],
             ]);
 
             // Send email with credentials
@@ -138,7 +143,7 @@ class TeacherProfileController extends Controller
      */
     public function show(TeacherProfile $teacher)
     {
-        $teacher->load(['user', 'classSubjects.class', 'classSubjects.subject']);
+        $teacher->load(['user','subject', 'classSubjects.class', 'classSubjects.subject']);
         return view('admin.Teacher.show', compact('teacher'));
     }
 

@@ -13,6 +13,7 @@ class TeacherProfile extends Model
         'experience_years',
         'joining_date',
         'salary',
+        'subject_id'
     ];
 
     protected $casts = [
@@ -32,5 +33,10 @@ class TeacherProfile extends Model
     public function classSubjects()
     {
         return $this->hasMany(ClassSubject::class, 'teacher_id');
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
     }
 }

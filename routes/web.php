@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherProfileController;
 use App\Http\Controllers\StudentProfileController;
@@ -21,6 +22,9 @@ Route::post('/admin/login', [UserController::class, 'adminLogin'])->name('admin.
 // Admin Routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [UserController::class, 'adminDashboard'])->name('dashboard');
+
+    //User Admin Routes
+    Route::get('/users', [UserController::class, 'adminUserList'])->name('user.list');
 
     //Subject Admin Routes
     Route::get('/subject', [SubjectController::class, 'index'])->name('subject.list');
@@ -48,6 +52,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/student/{student}/edit', [StudentProfileController::class, 'edit'])->name('student.edit');
     Route::put('/student/{student}', [StudentProfileController::class, 'update'])->name('student.update');
     Route::delete('/student/{student}', [StudentProfileController::class, 'destroy'])->name('student.destroy');
+
+    //Subject Class Admin Routes
+    Route::get('/class-subjects/create', [ClassSubjectController::class, 'create'])->name('class-subject.create');
+    Route::post('/class-subjects/store', [ClassSubjectController::class, 'store'])->name('class-subject.store');
+    Route::get('/class-subjects', [ClassSubjectController::class, 'index'])->name('class-subject.list');
+    Route::delete('/class-subjects/{classSubject}', [ClassSubjectController::class, 'destroy'])->name('class-subject.destroy');
 
 });
 
