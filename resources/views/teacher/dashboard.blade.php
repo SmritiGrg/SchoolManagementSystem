@@ -1,20 +1,9 @@
-@extends('layouts.dashboard')
+@extends('layouts.teacher')
 
-@php
-    $pageTitle = 'Teacher Dashboard';
-    $sidebarTitle = 'Teacher Portal';
-    $menuItems = [
-        ['label' => 'Dashboard', 'url' => '#', 'icon' => 'icon-dashboard', 'active' => 'teacher/dashboard'],
-        ['label' => 'My Courses', 'url' => '#', 'icon' => 'icon-courses', 'active' => 'teacher/courses*'],
-        ['label' => 'Students', 'url' => '#', 'icon' => 'icon-students', 'active' => 'teacher/students*'],
-        ['label' => 'Assignments', 'url' => '#', 'icon' => 'icon-assignments', 'active' => 'teacher/assignments*'],
-        ['label' => 'Grades', 'url' => '#', 'icon' => 'icon-grades', 'active' => 'teacher/grades*'],
-        ['label' => 'Schedule', 'url' => '#', 'icon' => 'icon-schedule', 'active' => 'teacher/schedule*'],
-        ['label' => 'Resources', 'url' => '#', 'icon' => 'icon-resources', 'active' => 'teacher/resources*'],
-    ];
-@endphp
+@php $pageTitle = 'Teacher Dashboard'; @endphp
 
-@section('content')
+
+@section('teacher-content')
     <div class="dashboard-stats">
         <div class="stat-card">
             <h3>My Courses</h3>

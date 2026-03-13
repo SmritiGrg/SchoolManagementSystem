@@ -6,6 +6,7 @@ use App\Http\Controllers\TeacherProfileController;
 use App\Http\Controllers\StudentProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TeacherController;
 
 // Public Routes
 Route::get('/', function () {
@@ -64,6 +65,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 // Teacher Routes
 Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
     Route::get('/dashboard', [UserController::class, 'teacherDashboard'])->name('dashboard');
+    Route::get('/courses', [TeacherController::class, 'courses'])->name('courses');
+    Route::get('/students', [TeacherController::class, 'students'])->name('students');
 });
 
 // Student Routes
