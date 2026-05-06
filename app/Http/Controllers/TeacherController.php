@@ -7,6 +7,8 @@ use App\Models\Classes;
 use App\Models\StudentProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class TeacherController extends Controller
 {
@@ -65,5 +67,69 @@ class TeacherController extends Controller
         $classes = Classes::whereIn('id', $teacherClassIds)->get();
 
         return view('teacher.students', compact('students', 'classes'));
+    }
+
+    public function profile()
+    {
+        $teacher = Auth::user()->teacherProfile()->with(['subject', 'classSubjects.schoolClass', 'classSubjects.subject'])->first();
+
+        if (!$teacher) {
+            return redirect()->route('teacher.dashboard')
+                ->with('error', 'Teacher profile not found.');
+        }
+
+        return view('teacher.profile', compact('teacher'));
+    }
+
+    public function editProfile()
+    {
+        $teacher = Auth::user()->teacherProfile()->with('subject')->first();
+
+        if (!$teacher) {
+            return redirect()->route('teacher.dashboard')
+                ->with('error', 'Teacher profile not found.');
+        }
+
+        return view('teacher.profile-edit', compact('teacher'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user    = Auth::user();
+        $teacher = $user->teacherProfile;
+
+        if (!$teacher) {
+            return redirect()->route('teacher.dashboard')
+                ->with('error', 'Teacher profile not found.');
+        }
+
+        $request->validate([
+            'name'             => 'required|string|max:255',
+            'email'            => 'required|email|unique:users,email,' . $user->id,
+            'phone'            => 'nullable|string|max:20',
+            'password'         => ['nullable', 'confirmed', Password::min(8)],
+            'qualification'    => 'nullable|string|max:255',
+            'experience_years' => 'nullable|integer|min:0|max:60',
+        ]);
+
+        // Update user account fields
+        $user->name  = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        // Update teacher profile fields
+        $teacher->update([
+            'qualification'    => $request->qualification,
+            'experience_years' => $request->experience_years,
+        ]);
+
+        return redirect()->route('teacher.profile')
+            ->with('success', 'Profile updated successfully.');
     }
 }

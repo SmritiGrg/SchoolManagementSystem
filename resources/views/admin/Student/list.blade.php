@@ -122,7 +122,7 @@
                             <span class="badge badge-code">{{ $student->admission_number }}</span>
                         </td>
                         <td>{{ $student->roll_number ?? 'N/A' }}</td>
-                        <td>{{ $student->class->class_name ?? 'N/A' }}</td>
+                        <td>{{ $student->class->class_name ?? 'N/A' }}{{ $student->class?->section ? ' "' . $student->class->section . '"' : '' }}</td>
                         <td>{{ $student->user->email }}</td>
                         <td>
                             <span class="badge badge-gender">{{ ucfirst($student->gender ?? 'N/A') }}</span>

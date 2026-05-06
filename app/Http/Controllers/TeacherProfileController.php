@@ -143,7 +143,7 @@ class TeacherProfileController extends Controller
      */
     public function show(TeacherProfile $teacher)
     {
-        $teacher->load(['user','subject', 'classSubjects.class', 'classSubjects.subject']);
+        $teacher->load(['user','subject', 'classSubjects.schoolClass', 'classSubjects.subject']);
         return view('admin.Teacher.show', compact('teacher'));
     }
 

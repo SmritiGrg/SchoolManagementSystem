@@ -35,6 +35,12 @@
             'active' => 'admin/subject*'
         ],
         [
+            'label' => 'Classes',
+            'url' => route('admin.classes.list'),
+            'icon' => 'teacher',
+            'active' => 'admin/classes*'
+        ],
+        [
             'label' => 'Class-Subject',
             'url' => route('admin.class-subject.list'),
             'icon' => 'book',

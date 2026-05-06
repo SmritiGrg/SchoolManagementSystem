@@ -11,6 +11,12 @@
             'active' => 'teacher/dashboard'
         ],
         [
+            'label' => 'My Profile',
+            'url' => route('teacher.profile'),
+            'icon' => 'teacher',
+            'active' => 'teacher/profile*'
+        ],
+        [
             'label' => 'My Courses',
             'url' => route('teacher.courses'),
             'icon' => 'book',

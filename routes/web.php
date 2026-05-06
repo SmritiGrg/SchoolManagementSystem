@@ -60,6 +60,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/class-subjects', [ClassSubjectController::class, 'index'])->name('class-subject.list');
     Route::delete('/class-subjects/{classSubject}', [ClassSubjectController::class, 'destroy'])->name('class-subject.destroy');
 
+    //Classes Admin Routes
+    Route::get('/classes', [\App\Http\Controllers\ClassesController::class, 'index'])->name('classes.list');
+    Route::get('/classes/create', [\App\Http\Controllers\ClassesController::class, 'create'])->name('classes.create');
+    Route::post('/classes', [\App\Http\Controllers\ClassesController::class, 'store'])->name('classes.store');
+    Route::get('/classes/{class}', [\App\Http\Controllers\ClassesController::class, 'show'])->name('classes.show');
+    Route::get('/classes/{class}/edit', [\App\Http\Controllers\ClassesController::class, 'edit'])->name('classes.edit');
+    Route::put('/classes/{class}', [\App\Http\Controllers\ClassesController::class, 'update'])->name('classes.update');
+    Route::delete('/classes/{class}', [\App\Http\Controllers\ClassesController::class, 'destroy'])->name('classes.destroy');
+    Route::delete('/classes-bulk', [\App\Http\Controllers\ClassesController::class, 'bulkDestroy'])->name('classes.bulk-destroy');
+
 });
 
 // Teacher Routes
@@ -67,11 +77,17 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::get('/dashboard', [UserController::class, 'teacherDashboard'])->name('dashboard');
     Route::get('/courses', [TeacherController::class, 'courses'])->name('courses');
     Route::get('/students', [TeacherController::class, 'students'])->name('students');
+    Route::get('/profile', [TeacherController::class, 'profile'])->name('profile');
+    Route::get('/profile/edit', [TeacherController::class, 'editProfile'])->name('profile.edit');
+    Route::put('/profile', [TeacherController::class, 'updateProfile'])->name('profile.update');
 });
 
 // Student Routes
 Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
     Route::get('/dashboard', [UserController::class, 'studentDashboard'])->name('dashboard');
+    Route::get('/profile', [\App\Http\Controllers\StudentController::class, 'profile'])->name('profile');
+    Route::get('/profile/edit', [\App\Http\Controllers\StudentController::class, 'editProfile'])->name('profile.edit');
+    Route::put('/profile', [\App\Http\Controllers\StudentController::class, 'updateProfile'])->name('profile.update');
 });
 
 // Logout Route

@@ -1,19 +1,10 @@
-@extends('layouts.dashboard')
+@extends('layouts.student')
 
 @php
     $pageTitle = 'Student Dashboard';
-    $sidebarTitle = 'Student Portal';
-    $menuItems = [
-        ['label' => 'Dashboard', 'url' => '#', 'icon' => 'icon-dashboard', 'active' => 'student/dashboard'],
-        ['label' => 'My Courses', 'url' => '#', 'icon' => 'icon-courses', 'active' => 'student/courses*'],
-        ['label' => 'Assignments', 'url' => '#', 'icon' => 'icon-assignments', 'active' => 'student/assignments*'],
-        ['label' => 'Grades', 'url' => '#', 'icon' => 'icon-grades', 'active' => 'student/grades*'],
-        ['label' => 'Schedule', 'url' => '#', 'icon' => 'icon-schedule', 'active' => 'student/schedule*'],
-        ['label' => 'Resources', 'url' => '#', 'icon' => 'icon-resources', 'active' => 'student/resources*'],
-    ];
 @endphp
 
-@section('content')
+@section('student-content')
     <div class="dashboard-stats">
         <div class="stat-card">
             <h3>Enrolled Courses</h3>

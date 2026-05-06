@@ -70,7 +70,7 @@
                             <tbody>
                                 @foreach($subject->classSubjects as $classSubject)
                                     <tr>
-                                        <td>{{ $classSubject->class->class_name ?? 'N/A' }}</td>
+                                        <td>{{ $classSubject->schoolClass->class_name ?? 'N/A' }}</td>
                                         <td>{{ $classSubject->teacher->user->name ?? 'Not Assigned' }}</td>
                                         <td>{{ $classSubject->created_at->format('M d, Y') }}</td>
                                     </tr>

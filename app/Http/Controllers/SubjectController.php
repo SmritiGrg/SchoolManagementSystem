@@ -48,7 +48,7 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        $subject->load(['classSubjects.class', 'classSubjects.teacher']);
+        $subject->load(['classSubjects.schoolClass', 'classSubjects.teacher']);
         return view('admin.Subject.show', compact('subject'));
     }
 
