@@ -41,6 +41,12 @@
             'active' => 'admin/classes*'
         ],
         [
+            'label' => 'Routine',
+            'url' => route('admin.routine.index'),
+            'icon' => 'schedule',
+            'active' => 'admin/routine*'
+        ],
+        [
             'label' => 'Class-Subject',
             'url' => route('admin.class-subject.list'),
             'icon' => 'book',

@@ -70,6 +70,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('/classes/{class}', [\App\Http\Controllers\ClassesController::class, 'destroy'])->name('classes.destroy');
     Route::delete('/classes-bulk', [\App\Http\Controllers\ClassesController::class, 'bulkDestroy'])->name('classes.bulk-destroy');
 
+    //Routine Admin Routes
+    Route::get('/routine', [\App\Http\Controllers\RoutineController::class, 'index'])->name('routine.index');
+    Route::get('/routine/class-subjects', [\App\Http\Controllers\RoutineController::class, 'getClassSubjects'])->name('routine.class-subjects');
+    Route::get('/routine/create', [\App\Http\Controllers\RoutineController::class, 'create'])->name('routine.create');
+    Route::post('/routine', [\App\Http\Controllers\RoutineController::class, 'store'])->name('routine.store');
+    Route::get('/routine/{routine}/edit', [\App\Http\Controllers\RoutineController::class, 'edit'])->name('routine.edit');
+    Route::put('/routine/{routine}', [\App\Http\Controllers\RoutineController::class, 'update'])->name('routine.update');
+    Route::delete('/routine/{routine}', [\App\Http\Controllers\RoutineController::class, 'destroy'])->name('routine.destroy');
+
 });
 
 // Teacher Routes

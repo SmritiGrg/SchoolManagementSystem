@@ -87,12 +87,43 @@ class UserController extends Controller
 
     public function teacherDashboard()
     {
-        return view('teacher.dashboard');
+        $teacher = Auth::user()->teacherProfile;
+        $routine = [];
+        $days    = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+
+        if ($teacher) {
+            $slots = \App\Models\Routine::with(['subject', 'schoolClass'])
+                ->where('teacher_id', $teacher->id)
+                ->orderBy('start_time')
+                ->get();
+
+            foreach ($days as $day) {
+                $routine[$day] = $slots->where('day', $day)->values();
+            }
+        }
+
+        return view('teacher.dashboard', compact('routine'));
     }
 
     public function studentDashboard()
     {
-        return view('student.dashboard');
+        $user    = Auth::user();
+        $student = $user->studentProfile;
+        $routine = [];
+
+        if ($student && $student->class_id) {
+            $days  = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+            $slots = \App\Models\Routine::with(['subject', 'teacher.user'])
+                ->where('class_id', $student->class_id)
+                ->orderBy('start_time')
+                ->get();
+
+            foreach ($days as $day) {
+                $routine[$day] = $slots->where('day', $day)->values();
+            }
+        }
+
+        return view('student.dashboard', compact('routine'));
     }
 
     public function adminDashboard()
